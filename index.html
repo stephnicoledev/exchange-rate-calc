@@ -5,14 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exchange Rate Calculator</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Exchange Rate Calculator</h1>
+    <div class="frosted-glass">
+    <h1 id="title">Exchange Rate Calculator</h1>
     <p>Select the currency and amount to get the exchange rate.</p>
 
     <section class="container">
+        <!--Container that holds the first currency-->
         <div class="currency">
-            <select id="currency-one">
+            <select id="firstCurrency">
                 <option value="AED">AED</option>
                 <option value="ARS">ARS</option>
                 <option value="AUD">AUD</option>
@@ -66,16 +71,18 @@
                 <option value="VND">VND</option>
                 <option value="ZAR">ZAR</option>
             </select>
-            <input type="number" id="amount-one" placeholder="0" value="1">
+            <input type="number" id="firstCurrencyRate" placeholder="0" value="1">
         </div>
 
+        <!--Container that holds the rate to swap-->
         <div class="swap-rate-container">
-            <button class="btn" id="swap">Swap</button>
-            <div class="rate" id="rate"></div>
+            <button class="btn btn-1" id="swap">Swap Currency Rate</button>
+            <p class="rate" id="rate"></p>
         </div>
 
+        <!--Container that holds the second currency-->
         <div class="currency">
-            <select id="currency-two">
+            <select id="secondCurrency">
                 <option value="AED">AED</option>
                 <option value="ARS">ARS</option>
                 <option value="AUD">AUD</option>
@@ -129,9 +136,10 @@
                 <option value="VND">VND</option>
                 <option value="ZAR">ZAR</option>
             </select>
-            <input type="number" id="amount-two" placeholder="0">
+            <input type="number" id="secondCurrencyRate" placeholder="0">
         </div>
     </section>
+</div>
 
     <script src="script.js"></script>
 </body>

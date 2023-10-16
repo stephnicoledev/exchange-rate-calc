@@ -1,39 +1,34 @@
-const currencyElement_one = document.getElementById('currency-one');
-const currencyElement_two = document.getElementById('currency-two');
-const amountElement_one = document.getElementById('amount-one');
-const amountElement_two = document.getElementById('amount-two');
+const firstCurrency = document.getElementById('firstCurrency');
+const secondCurrency = document.getElementById('secondCurrency');
+const firstRate = document.getElementById('firstCurrencyRate');
+const secondRate = document.getElementById('secondCurrencyRate');
 const rate = document.getElementById('rate');
 const swapButton = document.getElementById('swap');
 
-// Fetch exchange rates and update the DOM
-function calculate() {
-    // Get the values of currencies
-    const currency_one = currencyElement_one.value;
-    const currency_two = currencyElement_two.value;
+function calculateRate() {
+    // Get the values of the two currencies
+    const currencyOne = firstCurrency.value;
+    const currencyTwo = secondCurrency.value;
 
     // Make request
-    fetch(`https://v6.exchangerate-api.com/v6/46db5798b535839276a776f2/latest/${currency_one}`)
+    fetch(`https://v6.exchangerate-api.com/v6/46db5798b535839276a776f2/latest/${currencyOne}`)
     .then(response => response.json())
     .then(data => {
-        const currencyRate = data.conversion_rates[currency_two];
-        
-        rate.innerText = `1 ${currency_one} = ${currencyRate} ${currency_two}`;
-        
-        amountElement_two.value = (amountElement_one.value * currencyRate).toFixed(2);
+        const currencyRate = data.conversion_rates[currencyTwo];
+        rate.innerText = `1 ${currencyOne} = ${currencyRate} ${currencyTwo}`;
+        secondRate.value = (firstRate.value * currencyRate).toFixed(2);
     });
 }
 
-// Event listeners
-currencyElement_one.addEventListener('change', calculate);
-amountElement_one.addEventListener('input', calculate);
-currencyElement_two.addEventListener('change', calculate);
-amountElement_two.addEventListener('input', calculate);
-
+firstCurrency.addEventListener('change', calculateRate);
+secondCurrency.addEventListener('change', calculateRate);
+firstRate.addEventListener('input', calculateRate);
+secondRate.addEventListener('input', calculateRate);
 swapButton.addEventListener('click', () => {
-    const temp = currencyElement_one.value;
-    currencyElement_one.value = currencyElement_two.value;
-    currencyElement_two.value = temp;
-    calculate();
+    const temporaryValue = firstCurrency.value;
+    firstCurrency.value = secondCurrency.value;
+    secondCurrency.value = temporaryValue;
+    calculateRate();
 });
 
-calculate();
+calculateRate();
